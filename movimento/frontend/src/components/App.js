@@ -1,10 +1,8 @@
-import logo from "./logo.svg";
-import classes from "./App.css";
-import { Component } from "react";
+import React, { Component } from "react";
 
 class App extends Component {
   state = {
-    name: "Vincent",
+    name: "Vince",
   };
   nameChangedHandler = (event) => {
     console.log(event.target.value);
@@ -12,8 +10,10 @@ class App extends Component {
   };
 
   render() {
+    console.log("HELLO WORLD");
     return (
       <div className="App">
+        <h1>Testing React Code!</h1>
         <input
           type="text"
           onChange={(event) => this.nameChangedHandler(event)}
