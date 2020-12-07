@@ -13,12 +13,13 @@ class App extends Component {
     console.log("HELLO WORLD");
     return (
       <div className="App">
-        <h1>Testing React Code!</h1>
+        <h1>Testing AHHH Code!</h1>
         <input
           type="text"
           onChange={(event) => this.nameChangedHandler(event)}
           value={this.state.name}
         ></input>
+        <h1>Testing AHHH Code!</h1>
       </div>
     );
   }
