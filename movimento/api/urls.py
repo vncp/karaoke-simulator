@@ -1,8 +1,9 @@
-from .views import JournalEntryView
+from .views import JournalEntryView, CreateJournalEntryView
 from django.urls import path
 from django.conf.urls import url
 
 
 urlpatterns = [
-    url('', JournalEntryView.as_view()),
+    path('entry', JournalEntryView.as_view()),
+    path('create-entry', CreateJournalEntryView.as_view()),
 ]

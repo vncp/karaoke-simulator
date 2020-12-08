@@ -1,17 +1,13 @@
 from django.db import models
-import string
-import random
-
-def gen_id(length):
-    while JournalEntry.objects.filter(code = code).count > 0:
-        res = ''.join(random.choices(string.ascii_upercase, k=length))
-    return res
-
+import uuid
 # Create your models here.
+# class User(model.Model):
+#     id = models.CharField(max_length=9, default=gen_id(9), unique=True, primary_key = True)
+#     journal = ArrayField(JournalEntry)
+
 class JournalEntry(models.Model):
-    id = models.CharField(max_length=9, default="", unique=True, primary_key = True)
+    code = models.CharField(max_length=40, default=uuid.uuid4)
     date = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=30, default="")
     body = models.CharField(max_length=1200, default="")
-    datePassed = models.BooleanField(null=False, default=False)
-
+    
