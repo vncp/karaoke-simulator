@@ -5,7 +5,7 @@ import CreateEntry from "./CreateEntry";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import LinearProgress from "@material-ui/core/LinearProgress";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import Entry from "./Entry.js";
 import {
   BrowserRouter as Router,
@@ -101,14 +101,9 @@ class HomePage extends Component {
                 >
                   Movimento Journal
                 </Typography>
-                <Typography
-                  component="h5"
-                  variant="h5"
-                  fontWeight="fontWeightLight"
-                  style={{ position: "absolute", top: "60vh" }}
-                >
-                  Vincent Pham
-                </Typography>
+                <FormHelperText style={{ position: "absolute", top: "60%" }}>
+                  <div align="center">What's on your mind today?</div>
+                </FormHelperText>
               </Grid>
               <Grid
                 container
@@ -121,8 +116,12 @@ class HomePage extends Component {
                 <div style={{ width: "auto", height: "0" }}></div>
                 {this.state.entries.length === 0 ? (
                   <Link to="/write">
-                    <Button variant="outlined" style={{ left: "80%" }}>
-                      Start your journey
+                    <Button
+                      variant="outlined"
+                      size="large"
+                      style={{ left: "100%" }}
+                    >
+                      Start Journaling
                     </Button>
                   </Link>
                 ) : (

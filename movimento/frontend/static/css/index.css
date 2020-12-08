@@ -4,9 +4,9 @@ body {
   margin: 0;
   padding: 0;
   color: black;
-  background: linear-gradient(-45deg, #521b0b, #ffbf34, #7fc9e4, #23d5ab);
+  background: linear-gradient(-45deg, #521604, #ffbf34, #7fc9e4, #23d5ab);
   background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
+  animation: gradient 30s ease infinite;
 }
 
 @keyframes gradient {
