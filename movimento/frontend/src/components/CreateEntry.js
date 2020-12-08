@@ -18,17 +18,21 @@ let createUUID = false;
 class CreateEntry extends Component {
   constructor(props) {
     super(props);
-    if (this.props.uuid === undefined) {
+    console.log("CreateEntry component retrieved " + this.props.focused_entry);
+    if (this.props.focused_entry == null) {
       createUUID = true;
+      this.state = {
+        uuid: uuid,
+        title: "",
+        body: "",
+      };
     } else {
-      uuid = this.props.uuid;
+      this.state = {
+        uuid: this.props.focused_entry.uuid,
+        title: this.props.focused_entry.title,
+        body: this.props.focused_entry.body,
+      };
     }
-    this.state = {
-      createUUID: createUUID,
-      uuid: uuid,
-      title: this.props.title,
-      body: this.props.body,
-    };
     this.SubmisionHandler = this.SubmisionHandler.bind(this);
     this.TitleChangeHandler = this.TitleChangeHandler.bind(this);
     this.BodyChangeHandler = this.BodyChangeHandler.bind(this);
@@ -37,20 +41,19 @@ class CreateEntry extends Component {
   TitleChangeHandler(event) {
     this.setState({
       title: event.target.value,
-      createUUID: createUUID,
     });
   }
 
   BodyChangeHandler(event) {
     this.setState({
       body: event.target.value,
-      createUUID: createUUID,
     });
   }
 
   SubmisionHandler() {
     let requestOptions;
     if (createUUID) {
+      console.log("SUBMISSION: Creating a new UUID");
       requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -60,12 +63,14 @@ class CreateEntry extends Component {
         }),
       };
     } else {
-      console.log(uuid);
+      console.log(
+        " SUBMISSION: Updating existing UUID " + this.props.focused_entry.uuid
+      );
       requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          code: uuid,
+          code: this.props.focused_entry.uuid,
           body: this.state.body,
           title: this.state.title,
         }),

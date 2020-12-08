@@ -25,8 +25,16 @@ class HomePage extends Component {
       error: null,
       isLoaded: false,
       entries: [],
+      focused_entry: null,
     };
     this.updateHandler = this.updateHandler.bind(this);
+    this.updateEntryHandler = this.updateEntryHandler.bind(this);
+  }
+
+  updateEntryHandler(entry) {
+    console.log("Updating current current focused entry");
+    console.log(entry);
+    this.setState({ focused_entry: entry });
   }
 
   updateHandler() {
@@ -38,7 +46,7 @@ class HomePage extends Component {
     setTimeout(() => {
       this.componentDidMount();
       this.forceUpdate();
-    }, 50);
+    }, 100);
 
     console.log("Render update forced!");
   }
@@ -70,12 +78,6 @@ class HomePage extends Component {
       return (
         <Grid container align="center" justify="center" xs={12}>
           <div style={{ width: "100vw", height: "0" }} />
-          <div style={{ align: "center" }}>
-            <Typography component="h2" variant="h2" fontWeight="fontWeightBold">
-              Loading...
-            </Typography>
-            <LinearProgress color="secondary"></LinearProgress>);
-          </div>
         </Grid>
       );
     } else {
@@ -108,7 +110,6 @@ class HomePage extends Component {
                   Vincent Pham
                 </Typography>
               </Grid>
-
               <Grid
                 container
                 direction="row"
@@ -137,6 +138,7 @@ class HomePage extends Component {
                   return (
                     <Grid item xs={3}>
                       <Entry
+                        updateEntryHandler={this.updateEntryHandler}
                         updateHandler={this.updateHandler}
                         uuid={entry.code}
                         body={entry.body}
@@ -155,6 +157,7 @@ class HomePage extends Component {
                   {...props}
                   updateHandler={this.updateHandler}
                   uuid={props.uuid}
+                  focused_entry={this.state.focused_entry}
                 />
               )}
             />

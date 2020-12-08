@@ -46,6 +46,15 @@ export default function Entry(props) {
     setExpanded(!expanded);
   };
 
+  const handleUpdateClick = () => {
+    console.log("Updating " + uuid);
+    props.updateEntryHandler({
+      uuid: uuid,
+      title: props.title,
+      body: props.body,
+    });
+  };
+
   const handleDeleteClick = () => {
     console.log("Deleting: " + uuid);
     let requestOptions = {
@@ -65,7 +74,7 @@ export default function Entry(props) {
     <Card className={classes.root}>
       <CardHeader
         action={
-          <IconButton aria-label="settings">
+          <IconButton aria-label="settings" onClick={handleUpdateClick}>
             <Link to="/write">
               <MoreVertIcon color="disabled" />
             </Link>
@@ -74,7 +83,6 @@ export default function Entry(props) {
         title={props.title}
         subheader={props.date}
       />
-
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {props.body.length > 50
