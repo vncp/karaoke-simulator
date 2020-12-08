@@ -12,3 +12,8 @@ class CreateEntrySerializer(serializers.ModelSerializer):
     class Meta:
         model = JournalEntry
         fields = ('code', 'title', 'body')
+
+class RemoveEntrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JournalEntry
+        fields = ('code','id')

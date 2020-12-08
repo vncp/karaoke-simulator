@@ -70,11 +70,11 @@ class CreateEntry extends Component {
           title: this.state.title,
         }),
       };
-      console.log("Outgoing", requestOptions);
     }
     fetch("/api/create-entry", requestOptions).then((response) =>
       response.json().then((data) => console.log(data))
     );
+    this.props.updateHandler();
   }
 
   render() {
@@ -123,7 +123,7 @@ class CreateEntry extends Component {
               />
             </formControl>
           </Grid>
-          <Grid item xs={12} align="center">
+          <Grid item xs={12} align="center" to="/" component={Link}>
             <div style={{ height: "20px" }}></div>
             <Button onClick={this.SubmisionHandler}>Submit</Button>
           </Grid>

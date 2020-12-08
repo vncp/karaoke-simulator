@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import AddIcon from "@material-ui/icons/Add";
+import IconButton from "@material-ui/core/IconButton";
 import CreateEntry from "./CreateEntry";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Entry from "./Entry.js";
@@ -10,6 +13,8 @@ import {
   Route,
   Link,
   Redirect,
+  withRouter,
+  useHistory,
 } from "react-router-dom";
 import About from "./About";
 
@@ -21,7 +26,23 @@ class HomePage extends Component {
       isLoaded: false,
       entries: [],
     };
+    this.updateHandler = this.updateHandler.bind(this);
   }
+
+  updateHandler() {
+    this.setState({
+      error: null,
+      isLoaded: false,
+      entries: [],
+    });
+    setTimeout(() => {
+      this.componentDidMount();
+      this.forceUpdate();
+    }, 50);
+
+    console.log("Render update forced!");
+  }
+
   componentDidMount() {
     fetch("/api/entries")
       .then((res) => res.json())
@@ -93,38 +114,38 @@ class HomePage extends Component {
                 direction="row"
                 xs={12}
                 spacing={1}
-                justify="flex-end"
+                justify="flex-start"
                 alignItems="center"
               >
                 <div style={{ width: "auto", height: "0" }}></div>
-                <Grid item xs={3}>
-                  <Entry
-                    body="Integer nibh ex, dictum eget nibh ac, dapibus iaculis tortor. Curabitur ornare semper tincidunt. Sed auctor neque sed augue blandit auctor. Vestibulum sed ultricies mi, vel fringilla nibh. Nulla facilisi. Nulla lacus ipsum, gravida interdum gravida in, interdum imperdiet diam. Pellentesque accumsan urna lorem, vitae maximus ipsum commodo ac."
-                    title="Neque porro"
-                    date="December 8, 2020"
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <Entry
-                    body="Nulla bibendum nunc bibendum est volutpat, volutpat faucibus metus ullamcorper. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus dapibus sem ut eros facilisis, nec fermentum nisl fringilla. Ut sapien lacus, tempus at aliquet eu, finibus et neque. Praesent mollis nunc placerat orci ornare congue. Nulla id pretium lorem, in tempor enim. Phasellus id sem pharetra, rutrum orci vel, facilisis ex. Morbi sed"
-                    title="Venci Dagta"
-                    date="December 8, 2020"
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <Entry
-                    body="Duis pellentesque mauris semper leo suscipit feugiat. Curabitur vel dolor id neque fermentum vestibulum. Suspendisse ullamcorper justo at purus commodo finibus. Integer porta neque id ex cursus pulvinar. Ut et metus libero. Phasellus egestas dictum ex, sed sodales leo. In quis tincidunt urna, at venenatis lacus. Nunc lacinia tincidunt luctus. Mauris hendrerit mollis malesuada."
-                    title="Dolor Sit"
-                    date="December 8, 2020"
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <Entry
-                    body="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vel gravida sem, vel vehicula metus. Morbi elementum, ligula sit amet vulputate interdum, mauris nibh vulputate lorem, at facilisis purus lorem vel sem. Duis pellentesque mauris semper leo suscipit feugiat. Curabitur vel dolor id neque fermentum vestibulum. Suspendisse ullamcorper justo at purus commodo finibus. Integer porta neque id ex cursus pulvinar. Ut et metus libero. Phasellus egestas dictum ex, sed sodales leo. In quis tincidunt urna, at venenatis lacus. Nunc lacinia tincidunt luctus. Mauris hendrerit mollis malesuada."
-                    title="adipisci velit"
-                    date="December 8, 2020"
-                  />
-                </Grid>
+                {this.state.entries.length === 0 ? (
+                  <Link to="/write">
+                    <Button variant="outlined" style={{ left: "80%" }}>
+                      Start your journey
+                    </Button>
+                  </Link>
+                ) : (
+                  <Grid item xs={1} justify="flex-start">
+                    <Link to="/write">
+                      <IconButton color="primary" aria-label="add entry">
+                        <AddIcon />
+                      </IconButton>
+                    </Link>
+                  </Grid>
+                )}
+                {this.state.entries.slice(0, 3).map((entry) => {
+                  return (
+                    <Grid item xs={3}>
+                      <Entry
+                        updateHandler={this.updateHandler}
+                        uuid={entry.code}
+                        body={entry.body}
+                        title={entry.title}
+                        date={entry.date}
+                      />
+                    </Grid>
+                  );
+                })}
               </Grid>
             </Route>
             <Route
@@ -132,7 +153,8 @@ class HomePage extends Component {
               render={(props) => (
                 <CreateEntry
                   {...props}
-                  uuid={"fb9c7ba2-6982-4d54-8951-1509aeea01f5"}
+                  updateHandler={this.updateHandler}
+                  uuid={props.uuid}
                 />
               )}
             />

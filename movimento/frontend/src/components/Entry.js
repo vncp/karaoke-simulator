@@ -1,5 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -36,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Entry(props) {
+  const uuid = props.uuid;
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -43,12 +46,29 @@ export default function Entry(props) {
     setExpanded(!expanded);
   };
 
+  const handleDeleteClick = () => {
+    console.log("Deleting: " + uuid);
+    let requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        code: uuid,
+      }),
+    };
+    fetch("/api/remove-entry", requestOptions).then((response) =>
+      response.json().then((data) => console.log(data))
+    );
+    props.updateHandler();
+  };
+
   return (
     <Card className={classes.root}>
       <CardHeader
         action={
           <IconButton aria-label="settings">
-            <MoreVertIcon />
+            <Link to="/write">
+              <MoreVertIcon color="disabled" />
+            </Link>
           </IconButton>
         }
         title={props.title}
@@ -57,10 +77,15 @@ export default function Entry(props) {
 
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          {props.body}
+          {props.body.length > 50
+            ? props.body.slice(0, 50) + "..."
+            : props.body}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
+        <IconButton aria-label="delete" onClick={handleDeleteClick}>
+          <DeleteForeverIcon />
+        </IconButton>
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,

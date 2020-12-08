@@ -7,7 +7,7 @@ import uuid
 
 class JournalEntry(models.Model):
     code = models.CharField(max_length=40, default=uuid.uuid4)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateField(auto_now_add=True)
     title = models.CharField(max_length=30, default="")
     body = models.CharField(max_length=1200, default="")
     
