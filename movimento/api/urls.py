@@ -4,6 +4,6 @@ from django.conf.urls import url
 
 
 urlpatterns = [
-    path('entry', JournalEntryView.as_view()),
+    path('entries', JournalEntryView.as_view()),
     path('create-entry', CreateJournalEntryView.as_view()),
 ]

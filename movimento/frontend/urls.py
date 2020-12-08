@@ -5,5 +5,5 @@ from django.urls import path
 urlpatterns = [
     path('', index),
     path('about', index),
-    path('create', index)
+    path('write', index)
 ]

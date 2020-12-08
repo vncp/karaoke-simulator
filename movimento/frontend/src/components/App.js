@@ -3,11 +3,7 @@ import HomePage from "./Homepage";
 
 class App extends Component {
   render() {
-    return (
-      <div className="App">
-        <HomePage />
-      </div>
-    );
+    return <HomePage />;
   }
 }
 

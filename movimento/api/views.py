@@ -12,7 +12,6 @@ class JournalEntryView(generics.ListAPIView):
 
 class CreateJournalEntryView(APIView):
     serializer_class = CreateEntrySerializer
-
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
