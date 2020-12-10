@@ -1,4 +1,4 @@
-#Movimento
+# Movimento
 A simple, aesthetic journaling app. 
 Movimentum is the Latin word for momentum.
 
@@ -8,9 +8,9 @@ There's still a lot to improve and many things I want to add. I will probably re
 
 The backend is Django which routes to the React frontend. Entry creation does an API call to a Django APIView.
 
-###Home Screen
+### Home Screen
 <a href="https://ibb.co/5nNd6Xj"><img src="https://i.ibb.co/mXLmGry/Movitemo1.png" alt="Movitemo1" border="0"></a>
-###Entry Creation
+### Entry Creation
 <a href="https://ibb.co/1MTJpMM"><img src="https://i.ibb.co/0KrVWKK/Movitemo2.png" alt="Movitemo2" border="0"></a>
-###Home Screen with an entry
+### Home Screen with an entry
 <a href="https://ibb.co/xmTF9bk"><img src="https://i.ibb.co/XyRY0PQ/Movitemo3.png" alt="Movitemo3" border="0"></a>
