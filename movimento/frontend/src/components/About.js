@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import Login from "./Login.js"
 
 const About = () => {
-  return <p>About Page</p>;
+  return <Login/>;
 };
 
 export default About;
